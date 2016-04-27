@@ -33,4 +33,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.4"
   spec.add_development_dependency "webmock", "~> 1.24"
   spec.add_development_dependency "byebug"
+
+  spec.metadata["allowed_push_host"] = "https://gems.listia.io"
 end

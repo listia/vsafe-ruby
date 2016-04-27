@@ -42,7 +42,7 @@ RSpec.describe VSafe::Client do
           yielded_config = config
         end
 
-        expect(yielded_config).to be_kind_of(VSafe::Config)
+        expect(yielded_config).to be_a(VSafe::Config)
         expect(yielded_config).to eq(client.config)
       end
     end
@@ -57,7 +57,7 @@ RSpec.describe VSafe::Client do
 
       response = client.get_session_tags
 
-      expect(response).to be_kind_of(VSafe::Responses::GetSessionTags)
+      expect(response).to be_a(VSafe::Responses::GetSessionTags)
       expect(response).to be_success
     end
   end
@@ -68,7 +68,7 @@ RSpec.describe VSafe::Client do
 
       response = client.charge_authorize(params)
 
-      expect(response).to be_kind_of(VSafe::Responses::ChargeAuthorize)
+      expect(response).to be_a(VSafe::Responses::ChargeAuthorize)
       expect(response).to be_success
     end
   end
@@ -79,7 +79,7 @@ RSpec.describe VSafe::Client do
 
       response = client.charge_confirm(params)
 
-      expect(response).to be_kind_of(VSafe::Responses::ChargeConfirm)
+      expect(response).to be_a(VSafe::Responses::ChargeConfirm)
       expect(response).to be_success
     end
   end
@@ -90,20 +90,20 @@ RSpec.describe VSafe::Client do
 
       response = client.reverse_payment(params)
 
-      expect(response).to be_kind_of(VSafe::Responses::ReversePayment)
+      expect(response).to be_a(VSafe::Responses::ReversePayment)
       expect(response).to be_success
     end
   end
 
   describe "#heartbeat" do
     it "returns response" do
-      stub_request(:post, client.service_url("HeartBeat")).with do |request|
+      stub_request(:post, client.service_url("HeartBeat")) do |request|
         json = assert_vsafe_request(request)
       end.to_return(body: body, headers: { "Content-Type" => VSafe::Client::REQUEST_CONTENT_TYPE })
 
       response = client.heartbeat
 
-      expect(response).to be_kind_of(VSafe::Response)
+      expect(response).to be_a(VSafe::Response)
       expect(response).to be_success
     end
   end
@@ -114,7 +114,18 @@ RSpec.describe VSafe::Client do
 
       response = client.charge_sale(params)
 
-      expect(response).to be_kind_of(VSafe::Responses::ChargeSale)
+      expect(response).to be_a(VSafe::Responses::ChargeSale)
+      expect(response).to be_success
+    end
+  end
+
+  describe "#validate_charge_account" do
+    it "returns response" do
+      stub_vsafe_request("ValidateChargeAccount")
+
+      response = client.validate_charge_account(params)
+
+      expect(response).to be_a(VSafe::Responses::ValidateChargeAccount)
       expect(response).to be_success
     end
   end
@@ -152,8 +163,24 @@ RSpec.describe VSafe::Client do
   end
 
   describe "#fingerprint_url" do
-    it "returns url" do
-      expect(client.fingerprint_url).to eq("#{client.config.url}/#{VSafe::Client::FINGERPRINT_PATH}")
+    context "when sandbox" do
+      before do
+        allow(client.config).to receive(:sandbox).and_return(true)
+      end
+
+      it "returns url" do
+        expect(client.fingerprint_url).to eq("#{client.config.url}/#{VSafe::Client::SANDBOX_FINGERPRINT_PATH}")
+      end
+    end
+
+    context "when not sandbox" do
+      before do
+        allow(client.config).to receive(:sandbox).and_return(false)
+      end
+
+      it "returns url" do
+        expect(client.fingerprint_url).to eq("#{client.config.url}/#{VSafe::Client::FINGERPRINT_PATH}")
+      end
     end
   end
 end

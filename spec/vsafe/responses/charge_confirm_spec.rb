@@ -5,8 +5,6 @@ RSpec.describe VSafe::Responses::ChargeConfirm do
   let(:payment_status) { "1" }
   let(:success_body) {
     {
-      "ResponseCode" => "0",
-      "ResponseText" => "Success",
       "PaymentStatus" => payment_status
     }
   }

@@ -5,8 +5,6 @@ require "vsafe/card_type"
 RSpec.describe VSafe::Responses::ChargeAccountToTemporaryToken do
   let(:body) {
     {
-      "ResponseCode" => VSafe::Responses::ChargeAccountToTemporaryToken::SUCCESS_RESPONSE_CODE,
-      "ResponseText" => "Success",
       "ChargeAccountNumberToken" => "abc",
       "PaymentDeviceLast4" => "1234",
       "PaymentDeviceTypeCD" => VSafe::CardType::AMERICAN_EXPRESS

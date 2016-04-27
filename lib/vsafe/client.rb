@@ -6,12 +6,14 @@ require "vsafe/responses/charge_confirm"
 require "vsafe/responses/reverse_payment"
 require "vsafe/responses/charge_account_to_temporary_token"
 require "vsafe/responses/charge_sale"
+require "vsafe/responses/validate_charge_account"
 require "securerandom"
 require "uri"
 
 module VSafe
   class Client
-    FINGERPRINT_PATH = "ThreatMetrixUIRedirector".freeze
+    SANDBOX_FINGERPRINT_PATH = "ThreatMetrixUIRedirector".freeze
+    FINGERPRINT_PATH = "PaySafeUIRedirector".freeze
     # We should only use JSONP_SERVICE_PATH for charge_acct_to_tempory_token call in web js.
     JSONP_SERVICE_PATH = "GatewayProxyJSON/Service".freeze
     SERVICE_PATH = "GatewayProxy/Service".freeze
@@ -53,6 +55,10 @@ module VSafe
       VSafe::Responses::ChargeSale.new(request(service_url("ChargeSale"), params))
     end
 
+    def validate_charge_account(params)
+      VSafe::Responses::ValidateChargeAccount.new(request(service_url("ValidateChargeAccount"), params))
+    end
+
     def service_url(endpoint = nil, jsonp = false)
       parts = [
         config.url,
@@ -64,7 +70,7 @@ module VSafe
     end
 
     def fingerprint_url
-      @_fingerprint_url ||= URI.join(config.url, FINGERPRINT_PATH).to_s
+      @_fingerprint_url ||= URI.join(config.url, config.sandbox ? SANDBOX_FINGERPRINT_PATH : FINGERPRINT_PATH).to_s
     end
 
     private

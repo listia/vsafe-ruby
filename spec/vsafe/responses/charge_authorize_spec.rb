@@ -11,8 +11,6 @@ RSpec.describe VSafe::Responses::ChargeAuthorize do
   let(:payment_status) { "5" }
   let(:success_body) {
     {
-      "ResponseCode" => "0",
-      "ResponseText" => "Success",
       "AVSResultCode" => avs_result_code,
       "AuthResultCode" => auth_result_code,
       "CVNResultCode" => cvn_result_code,

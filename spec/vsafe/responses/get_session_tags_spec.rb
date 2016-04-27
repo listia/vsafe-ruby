@@ -6,8 +6,6 @@ RSpec.describe VSafe::Responses::GetSessionTags do
   let(:web_session_id) { "test_web_session_id" }
   let(:success_body) {
     {
-      "ResponseCode" => "0",
-      "ResponseText" => "Success",
       "OrgID" => org_id,
       "WebSessionID" => "test_web_session_id"
     }

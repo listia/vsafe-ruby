@@ -10,15 +10,11 @@ module VSafe
                   :request_timeout,
                   :url
 
-    def initialize(options = {})
+    def initialize
       # Set sandbox to true by default
       @sandbox = true
       @request_timeout = DEFAULT_REQUEST_TIMEOUT
       @url = sandbox ? DEFAULT_SANDBOX_URL : DEFAULT_PRODUCTION_URL
-
-      options.each do |key, value|
-        public_send("#{key}=", value)
-      end
     end
   end
 end

@@ -21,8 +21,9 @@ module VSafe
 
     attr_reader :config
 
-    def initialize(config_attrs = {})
-      @config = Config.new(config_attrs)
+    def initialize
+      # dup config in case we need to override default settings
+      @config = VSafe.config.dup
 
       yield config if block_given?
     end

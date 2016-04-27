@@ -7,14 +7,16 @@ module VSafe
     attr_accessor :sandbox,
                   :account_name,
                   :password,
-                  :request_timeout,
-                  :url
+                  :request_timeout
 
     def initialize
       # Set sandbox to true by default
       @sandbox = true
       @request_timeout = DEFAULT_REQUEST_TIMEOUT
-      @url = sandbox ? DEFAULT_SANDBOX_URL : DEFAULT_PRODUCTION_URL
+    end
+
+    def url
+      sandbox ? DEFAULT_SANDBOX_URL : DEFAULT_PRODUCTION_URL
     end
   end
 end

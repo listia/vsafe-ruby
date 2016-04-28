@@ -1,5 +1,6 @@
 require "vsafe/config"
 require "vsafe/charge_source"
+require "vsafe/response"
 require "vsafe/responses/get_session_tags"
 require "vsafe/responses/charge_authorize"
 require "vsafe/responses/charge_confirm"

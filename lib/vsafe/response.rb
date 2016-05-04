@@ -37,7 +37,7 @@ module VSafe
 
     def success?
       response.success? &&
-        response.parsed_response["ResponseCode"] == SUCCESS_RESPONSE_CODE
+        response.parsed_response["ResponseCode"].to_s == SUCCESS_RESPONSE_CODE
     end
 
     def to_hash

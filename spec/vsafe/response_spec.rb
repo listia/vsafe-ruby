@@ -7,7 +7,7 @@ RSpec.describe VSafe::Response do
   let(:error_code) { 1001 }
   let(:success_body) {
     {
-      "ResponseCode" => VSafe::Response::SUCCESS_RESPONSE_CODE.to_s,
+      "ResponseCode" => VSafe::Response::SUCCESS_RESPONSE_CODE,
       "ResponseText" => "Success"
     }
   }
@@ -23,13 +23,33 @@ RSpec.describe VSafe::Response do
       let(:httparty_response) { double(:response, success?: true, parsed_response: success_body) }
 
       context "when result is successful" do
-        it "initializes successfully" do
-          response = VSafe::Response.new(httparty_response)
+        context "when response code is string" do
+          it "initializes successfully" do
+            response = VSafe::Response.new(httparty_response)
 
-          expect(response.response).to eq(httparty_response)
-          expect(response.to_hash).to eq(success_body)
-          expect(response.error).to eq(nil)
-          expect(response.success?).to eq(true)
+            expect(response.response).to eq(httparty_response)
+            expect(response.to_hash).to eq(success_body)
+            expect(response.error).to eq(nil)
+            expect(response.success?).to eq(true)
+          end
+        end
+
+        context "when response code is integer" do
+          let(:success_body) {
+            {
+              "ResponseCode" => VSafe::Response::SUCCESS_RESPONSE_CODE.to_i,
+              "ResponseText" => "Success"
+            }
+          }
+
+          it "initializes successfully" do
+            response = VSafe::Response.new(httparty_response)
+
+            expect(response.response).to eq(httparty_response)
+            expect(response.to_hash).to eq(success_body)
+            expect(response.error).to eq(nil)
+            expect(response.success?).to eq(true)
+          end
         end
       end
 

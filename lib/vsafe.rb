@@ -9,6 +9,6 @@ module VSafe
   end
 
   def self.config
-    Thread.current[:vsafe_config] ||= Config.new
+    @config ||= Config.new
   end
 end

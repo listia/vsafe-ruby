@@ -13,7 +13,8 @@ Gem::Specification.new do |spec|
   spec.description   = %q{Ruby API Library for Vesta's vSafe Payment Gateway.}
   spec.homepage      = "https://github.com/listia/vsafe-ruby"
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.files         = Dir["{lib,spec}/**/*"].select { |f| File.file?(f) } +
+                             %w(LICENSE.txt Rakefile README.md)
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]

@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/listia/vsafe-ruby"
 
   spec.files         = Dir["{lib,spec}/**/*"].select { |f| File.file?(f) } +
-                             %w(LICENSE.txt Rakefile README.md)
+                             %w(Rakefile README.md)
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]

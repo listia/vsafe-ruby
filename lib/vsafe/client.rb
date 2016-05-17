@@ -18,7 +18,7 @@ module VSafe
     # We should only use JSONP_SERVICE_PATH for charge_acct_to_tempory_token call in web js.
     JSONP_SERVICE_PATH = "GatewayProxyJSON/Service".freeze
     SERVICE_PATH = "GatewayProxy/Service".freeze
-    REQUEST_CONTENT_TYPE = "application/json".freeze
+    REQUEST_CONTENT_TYPE = "application/json; charset=utf8".freeze
 
     attr_reader :config
 

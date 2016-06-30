@@ -1,5 +1,6 @@
 # VSafe
-
+[![Build Status](https://travis-ci.org/listia/vsafe-ruby.svg?branch=master)](https://travis-ci.org/listia/vsafe-ruby)
+[![Gem Version](https://badge.fury.io/rb/vsafe-ruby.svg)](http://badge.fury.io/rb/vsafe-ruby)
 
 ## Installation
 

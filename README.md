@@ -17,9 +17,7 @@ Or install it yourself as:
 
     $ gem install vsafe-ruby
 
-## Usage
-
-#### Configuration
+## Configuration
 
 ```ruby
 VSafe.configure do |config|
@@ -39,7 +37,7 @@ client = VSafe::Client.new do |config|
 end
 ```
 
-### Request & Response
+## Request & Response
 
 First, Setup a client for making request:
 

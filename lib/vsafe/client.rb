@@ -15,9 +15,6 @@ module VSafe
   class Client
     SANDBOX_FINGERPRINT_PATH = "ThreatMetrixUIRedirector".freeze
     FINGERPRINT_PATH = "PaySafeUIRedirector".freeze
-    # We should only use JSONP_SERVICE_PATH for charge_acct_to_tempory_token call in web js.
-    JSONP_SERVICE_PATH = "GatewayProxyJSON/Service".freeze
-    SERVICE_PATH = "GatewayProxy/Service".freeze
     REQUEST_CONTENT_TYPE = "application/json; charset=utf-8".freeze
 
     attr_reader :config
@@ -64,7 +61,7 @@ module VSafe
     def service_url(endpoint = nil, jsonp = false)
       parts = [
         config.url,
-        jsonp ? JSONP_SERVICE_PATH : SERVICE_PATH
+        jsonp ? config.jsonp_service_path : config.service_path
       ]
       parts << endpoint if endpoint
 

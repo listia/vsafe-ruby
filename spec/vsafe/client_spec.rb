@@ -150,14 +150,34 @@ RSpec.describe VSafe::Client do
     end
 
     context "when jsonp is false" do
-      let(:service_path) { VSafe::Client::SERVICE_PATH }
+      let(:service_path) { VSafe::Config::DEFAULT_SERVICE_PATH }
 
       it_behaves_like "returns url"
     end
 
     context "when jsonp is true" do
-      let(:service_path) { VSafe::Client::JSONP_SERVICE_PATH }
+      let(:service_path) { VSafe::Config::DEFAULT_JSONP_SERVICE_PATH }
 
+      it_behaves_like "returns url", true
+    end
+
+    context 'when custom service_path is set' do
+      let(:service_path) { '__custom_service' }
+      let(:client) {
+        VSafe::Client.new do |config|
+          config.service_path = '__custom_service'
+        end
+      }
+      it_behaves_like "returns url"
+    end
+
+    context 'when custom jsonp_service_path is set' do
+      let(:service_path) { '__custom_jsonp' }
+      let(:client) {
+        VSafe::Client.new do |config|
+          config.jsonp_service_path = '__custom_jsonp'
+        end
+      }
       it_behaves_like "returns url", true
     end
   end

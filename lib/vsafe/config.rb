@@ -15,7 +15,8 @@ module VSafe
                   :password,
                   :service_path,
                   :jsonp_service_path,
-                  :request_timeout
+                  :request_timeout,
+                  :logger
 
     def initialize
       # Set sandbox to true by default

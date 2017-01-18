@@ -83,7 +83,8 @@ module VSafe
         ).to_json,
         headers: {
           "Content-Type" => REQUEST_CONTENT_TYPE
-        }
+        },
+        logger: @config.logger
       }
 
       # The HTTPS endpoint for VSafe Sandbox has an outdated SSL version.

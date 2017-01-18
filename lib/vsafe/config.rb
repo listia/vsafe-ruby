@@ -8,6 +8,8 @@ module VSafe
 
     attr_accessor :sandbox_url,
                   :production_url,
+                  :sandbox_jsonp_url,
+                  :production_jsonp_url,
                   :sandbox,
                   :account_name,
                   :password,
@@ -27,6 +29,10 @@ module VSafe
 
     def url
       sandbox ? @sandbox_url : @production_url
+    end
+
+    def jsonp_url
+      sandbox ? (@sandbox_jsonp_url || @sandbox_url) : (@production_jsonp_url || @production_url)
     end
   end
 end

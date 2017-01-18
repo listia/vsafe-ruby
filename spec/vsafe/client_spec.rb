@@ -191,7 +191,14 @@ RSpec.describe VSafe::Client do
       end
 
       it "returns url" do
-        expect(client.fingerprint_url).to eq("#{client.config.url}/#{VSafe::Client::SANDBOX_FINGERPRINT_PATH}")
+        expect(client.fingerprint_url).to eq("#{client.config.jsonp_url}/#{VSafe::Client::SANDBOX_FINGERPRINT_PATH}")
+      end
+
+      it "uses the jsonp_url when set" do
+        allow(client.config).to receive(:sandbox_jsonp_url).and_return('https://google.com/')
+        puts "sandbox_jsonp_url:  #{client.config.sandbox_jsonp_url}"
+        puts "URL:  #{client.config.jsonp_url}  #{client.config.sandbox}"
+        expect(client.fingerprint_url).to eq("https://google.com/#{VSafe::Client::SANDBOX_FINGERPRINT_PATH}")
       end
     end
 
@@ -201,7 +208,8 @@ RSpec.describe VSafe::Client do
       end
 
       it "returns url" do
-        expect(client.fingerprint_url).to eq("#{client.config.url}/#{VSafe::Client::FINGERPRINT_PATH}")
+        allow(client.config).to receive(:jsonp_url).and_return('https://google.com/')
+        expect(client.fingerprint_url).to eq("https://google.com/#{VSafe::Client::FINGERPRINT_PATH}")
       end
     end
   end

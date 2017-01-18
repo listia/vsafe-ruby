@@ -60,7 +60,7 @@ module VSafe
 
     def service_url(endpoint = nil, jsonp = false)
       parts = [
-        config.url,
+        jsonp ? config.jsonp_url : config.url,
         jsonp ? config.jsonp_service_path : config.service_path
       ]
       parts << endpoint if endpoint
@@ -69,7 +69,7 @@ module VSafe
     end
 
     def fingerprint_url
-      @_fingerprint_url ||= URI.join(config.url, config.sandbox ? SANDBOX_FINGERPRINT_PATH : FINGERPRINT_PATH).to_s
+      @_fingerprint_url ||= URI.join(config.jsonp_url, config.sandbox ? SANDBOX_FINGERPRINT_PATH : FINGERPRINT_PATH).to_s
     end
 
     private

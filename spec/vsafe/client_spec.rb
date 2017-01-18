@@ -195,9 +195,7 @@ RSpec.describe VSafe::Client do
       end
 
       it "uses the jsonp_url when set" do
-        allow(client.config).to receive(:sandbox_jsonp_url).and_return('https://google.com/')
-        puts "sandbox_jsonp_url:  #{client.config.sandbox_jsonp_url}"
-        puts "URL:  #{client.config.jsonp_url}  #{client.config.sandbox}"
+        client.config.sandbox_jsonp_url = 'https://google.com/'
         expect(client.fingerprint_url).to eq("https://google.com/#{VSafe::Client::SANDBOX_FINGERPRINT_PATH}")
       end
     end

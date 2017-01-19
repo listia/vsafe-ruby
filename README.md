@@ -38,6 +38,29 @@ client = VSafe::Client.new do |config|
 end
 ```
 
+### Vesta URLs
+
+All four Vesta URLs can be specified in config:
+
+```ruby
+VSafe.configure do |config|
+  config.sandbox_url = 'https://my.sandbox.url/GatewayV4Proxy/Service'
+  config.sandbox_jsonp_url = 'https://my.sandboxtoken.url/GatewayV4ProxyJSON/Service'
+  config.production_url = 'https://my.production.url/GatewayV4Proxy/Service'
+  config.production_jsonp_url = 'https://my.production.url/GatewayV4ProxyJSON/Service'
+end
+```
+
+### Logging
+
+The logger passed to HTTParty can be specified in config:
+
+```ruby
+VSafe.configure do |config|
+  config.logger = Rails.logger
+end
+```
+
 ## Request & Response
 
 First, Setup a client for making request:

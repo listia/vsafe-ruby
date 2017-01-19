@@ -136,7 +136,7 @@ RSpec.describe VSafe::Client do
         let(:endpoint) { "foo" }
 
         it "returns endpoint url" do
-          expect(client.service_url(endpoint, jsonp)).to eq("#{client.config.url}/#{endpoint}")
+          expect(client.service_url(endpoint, jsonp)).to eq("#{base_uri}/#{endpoint}")
         end
       end
 
@@ -144,16 +144,24 @@ RSpec.describe VSafe::Client do
         let(:endpoint) { nil }
 
         it "returns base url" do
-          expect(client.service_url(endpoint, jsonp)).to eq(client.config.url)
+          expect(client.service_url(endpoint, jsonp)).to eq(base_uri)
         end
       end
     end
 
     context "when jsonp is false" do
+      let(:base_uri) { 'https://base.url/GatewayProxy/Service'}
+      before do
+        expect(client.config).to receive(:url).and_return(base_uri)
+      end
       it_behaves_like "returns url"
     end
 
     context "when jsonp is true" do
+      let(:base_uri) { 'https://base.url/GatewayProxyJSON/Service'}
+      before do
+        expect(client.config).to receive(:jsonp_url).and_return(base_uri)
+      end
       it_behaves_like "returns url", true
     end
   end
@@ -165,7 +173,7 @@ RSpec.describe VSafe::Client do
       end
 
       it "use url when jsonp url is not set" do
-        client.config.sandbox_url = 'https://sandbox.url/GatewayProxy/Service'
+        client.config.sandbox_jsonp_url = 'https://sandbox.url/GatewayProxy/Service'
         expect(client.fingerprint_url).to eq("https://sandbox.url/#{VSafe::Client::SANDBOX_FINGERPRINT_PATH}")
       end
 

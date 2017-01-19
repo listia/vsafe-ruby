@@ -23,6 +23,8 @@ module VSafe
       @request_timeout = DEFAULT_REQUEST_TIMEOUT
       @sandbox_url = DEFAULT_SANDBOX_URL
       @production_url = DEFAULT_PRODUCTION_URL
+      @sandbox_jsonp_url = DEFAULT_SANDBOX_JSONP_URL
+      @production_jsonp_url = DEFAULT_PRODUCTION_JSONP_URL
     end
 
     def url
@@ -30,7 +32,7 @@ module VSafe
     end
 
     def jsonp_url
-      sandbox ? (@sandbox_jsonp_url || @sandbox_url) : (@production_jsonp_url || @production_url)
+      sandbox ? @sandbox_jsonp_url : @production_jsonp_url
     end
   end
 end

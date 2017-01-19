@@ -43,12 +43,7 @@ RSpec.describe VSafe::Config do
   describe "#jsonp_url" do
     context "sandbox is true" do
       it "uses default sandbox_url" do
-        expect(config.jsonp_url).to eq(VSafe::Config::DEFAULT_SANDBOX_URL)
-      end
-
-      it "uses sandbox_url if sandbox_jsonp_url is not set" do
-        config.sandbox_url = "https://www.google.com"
-        expect(config.jsonp_url).to eq("https://www.google.com")
+        expect(config.jsonp_url).to eq(VSafe::Config::DEFAULT_SANDBOX_JSONP_URL)
       end
 
       it "uses custom sandbox_jsonp_url when set" do
@@ -62,15 +57,6 @@ RSpec.describe VSafe::Config do
         config.sandbox = false
       end
 
-      it "uses default production_url when not set" do
-        expect(config.url).to eq(VSafe::Config::DEFAULT_PRODUCTION_URL)
-      end
-
-      it "uses production_url if production_jsonp_url is not set" do
-        config.production_url = "https://www.google.com"
-        expect(config.jsonp_url).to eq("https://www.google.com")
-      end
-
       it "uses custom production_url when not sandbox" do
         config.production_jsonp_url = "https://www.googlesandbox.com"
         expect(config.jsonp_url).to eq("https://www.googlesandbox.com")
@@ -81,12 +67,7 @@ RSpec.describe VSafe::Config do
   describe "#jsonp_url" do
     context "sandbox is true" do
       it "uses default sandbox_url" do
-        expect(config.jsonp_url).to eq(VSafe::Config::DEFAULT_SANDBOX_URL)
-      end
-
-      it "uses sandbox_url if sandbox_jsonp_url is not set" do
-        config.sandbox_url = "https://www.google.com"
-        expect(config.jsonp_url).to eq("https://www.google.com")
+        expect(config.jsonp_url).to eq(VSafe::Config::DEFAULT_SANDBOX_JSONP_URL)
       end
 
       it "uses custom sandbox_jsonp_url when set" do

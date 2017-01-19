@@ -136,7 +136,7 @@ RSpec.describe VSafe::Client do
         let(:endpoint) { "foo" }
 
         it "returns endpoint url" do
-          expect(client.service_url(endpoint, jsonp)).to eq("#{client.config.url}/#{service_path}/#{endpoint}")
+          expect(client.service_url(endpoint, jsonp)).to eq("#{client.config.url}/#{endpoint}")
         end
       end
 
@@ -144,42 +144,16 @@ RSpec.describe VSafe::Client do
         let(:endpoint) { nil }
 
         it "returns base url" do
-          expect(client.service_url(endpoint, jsonp)).to eq("#{client.config.url}/#{service_path}")
+          expect(client.service_url(endpoint, jsonp)).to eq(client.config.url)
         end
       end
     end
 
     context "when jsonp is false" do
-      let(:service_path) { VSafe::Config::DEFAULT_SERVICE_PATH }
-
       it_behaves_like "returns url"
     end
 
     context "when jsonp is true" do
-      let(:service_path) { VSafe::Config::DEFAULT_JSONP_SERVICE_PATH }
-
-      it_behaves_like "returns url", true
-    end
-
-    context "when custom service_path is set" do
-      let(:service_path) { "__custom_service" }
-      let(:client) {
-        VSafe::Client.new do |config|
-          config.service_path = "__custom_service"
-        end
-      }
-
-      it_behaves_like "returns url"
-    end
-
-    context "when custom jsonp_service_path is set" do
-      let(:service_path) { "__custom_jsonp" }
-      let(:client) {
-        VSafe::Client.new do |config|
-          config.jsonp_service_path = "__custom_jsonp"
-        end
-      }
-
       it_behaves_like "returns url", true
     end
   end
@@ -190,8 +164,9 @@ RSpec.describe VSafe::Client do
         allow(client.config).to receive(:sandbox).and_return(true)
       end
 
-      it "returns url" do
-        expect(client.fingerprint_url).to eq("#{client.config.jsonp_url}/#{VSafe::Client::SANDBOX_FINGERPRINT_PATH}")
+      it "use url when jsonp url is not set" do
+        client.config.sandbox_url = 'https://sandbox.url/GatewayProxy/Service'
+        expect(client.fingerprint_url).to eq("https://sandbox.url/#{VSafe::Client::SANDBOX_FINGERPRINT_PATH}")
       end
 
       it "uses the jsonp_url when set" do

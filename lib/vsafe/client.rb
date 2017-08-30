@@ -8,6 +8,7 @@ require "vsafe/responses/reverse_payment"
 require "vsafe/responses/charge_account_to_temporary_token"
 require "vsafe/responses/charge_sale"
 require "vsafe/responses/validate_charge_account"
+require "vsafe/responses/get_payment_status"
 require "securerandom"
 require "uri"
 
@@ -58,6 +59,10 @@ module VSafe
       VSafe::Responses::ValidateChargeAccount.new(request(service_url("ValidateChargeAccount"), params))
     end
 
+    def get_payment_status(params)
+      VSafe::Responses::GetPaymentStatus.new(request(service_url("GetPaymentStatus"), params))
+    end
+
     def service_url(endpoint = nil, jsonp = false)
       base_uri = jsonp ? config.jsonp_url : config.url
       endpoint.nil? ? base_uri : File.join(base_uri, endpoint)
@@ -89,7 +94,7 @@ module VSafe
         options[:ssl_version] = :TLSv1
       end
 
-      response = HTTParty.post(url, options)
+      HTTParty.post(url, options)
     end
   end
 end

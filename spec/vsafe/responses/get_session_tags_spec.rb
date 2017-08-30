@@ -7,7 +7,7 @@ RSpec.describe VSafe::Responses::GetSessionTags do
   let(:success_body) {
     {
       "OrgID" => org_id,
-      "WebSessionID" => "test_web_session_id"
+      "WebSessionID" => web_session_id
     }
   }
   let(:http_response) { double(:response, success?: true, parsed_response: success_body) }

@@ -224,6 +224,25 @@ response.payment_id
 response.payment_status
 ```
 
+##### Get Payment Status
+
+Get the payment status by the partner transaction ID or Vesta Payment ID.
+
+```ruby
+params = {
+  PartnerTransactionID: '333c1b85-c5db-4648-a946-ba408582fc1c'
+}
+response = client.get_payment_status(params) # => #<VSafe::Responses::GetPaymentStatus ...>
+
+# Response attributes
+response.amount
+response.payment_id
+response.payment_status
+response.response_code
+response.transaction_id
+```
+
+Note: If transaction does not exist on Vesta, result of `response.success?` will be false.
 
 ## Contributing
 

@@ -130,6 +130,16 @@ RSpec.describe VSafe::Client do
     end
   end
 
+  describe "#get_payment_status" do
+    it "returns response" do
+      stub_vsafe_request("GetPaymentStatus")
+      response = client.get_payment_status(params)
+
+      expect(response).to be_a(VSafe::Responses::GetPaymentStatus)
+      expect(response).to be_success
+    end
+  end
+
   describe "#service_url" do
     shared_examples_for "returns url" do |jsonp|
       context "when endpoint defined" do

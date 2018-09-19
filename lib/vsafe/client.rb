@@ -88,12 +88,6 @@ module VSafe
         logger: @config.logger
       }
 
-      # The HTTPS endpoint for VSafe Sandbox has an outdated SSL version.
-      # We need to do this so that we can actually connect.
-      if config.sandbox
-        options[:ssl_version] = :TLSv1
-      end
-
       HTTParty.post(url, options)
     end
   end

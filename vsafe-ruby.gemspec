@@ -6,8 +6,8 @@ require "vsafe/version"
 Gem::Specification.new do |spec|
   spec.name          = "vsafe-ruby"
   spec.version       = VSafe::VERSION
-  spec.authors       = ["Xiaoming Lu", "Ngan Pham", "Xenor Chang"]
-  spec.email         = ["xlu@listia.com", "ngan@listia.com", "xenor@listia.com"]
+  spec.authors       = ["Ngan Pham", "Xenor Chang"]
+  spec.email         = ["ngan@listia.com", "xenor@listia.com"]
 
   spec.summary       = %q{Ruby API Library for Vesta's vSafe Payment Gateway.}
   spec.description   = %q{Ruby API Library for Vesta's vSafe Payment Gateway.}
